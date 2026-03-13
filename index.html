@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Leiah Elior — Espiritualidade Feminina</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #0d0a14;
+    --bg2: #141020;
+    --purple: #7c6fd0;
+    --purple-light: #a99ee8;
+    --purple-dark: #3d3480;
+    --gold: #c9a96e;
+    --gold-light: #e8cfa0;
+    --text: #ede8ff;
+    --text-muted: #9b91c8;
+    --green: #3d9e7a;
+    --green-light: #5dcaa5;
+  }
+
+  html, body {
+    min-height: 100%;
+    background: var(--bg);
+    font-family: 'Jost', sans-serif;
+    color: var(--text);
+  }
+
+  body {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+    padding: 2rem 1rem 4rem;
+    position: relative;
+    overflow-x: hidden;
+  }
+
+  .bg-orb {
+    position: fixed;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 0;
+  }
+  .bg-orb-1 {
+    width: 500px; height: 500px;
+    top: -150px; left: -150px;
+    background: radial-gradient(circle, #3d348022 0%, transparent 70%);
+  }
+  .bg-orb-2 {
+    width: 400px; height: 400px;
+    bottom: 0; right: -100px;
+    background: radial-gradient(circle, #2d6e5015 0%, transparent 70%);
+  }
+
+  .stars {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+  }
+  .star {
+    position: absolute;
+    width: 2px; height: 2px;
+    background: var(--purple-light);
+    border-radius: 50%;
+    opacity: 0;
+    animation: twinkle var(--d, 3s) var(--delay, 0s) infinite;
+  }
+  @keyframes twinkle {
+    0%, 100% { opacity: 0; transform: scale(0.8); }
+    50% { opacity: var(--op, 0.6); transform: scale(1.2); }
+  }
+
+  .container {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 420px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+  }
+
+  .header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    padding: 2rem 0 1.5rem;
+    animation: fadeUp 0.8s ease both;
+  }
+
+  .star-icon {
+    width: 48px; height: 48px;
+    animation: rotateSlow 20s linear infinite;
+  }
+  @keyframes rotateSlow {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
+  .avatar {
+    width: 90px; height: 90px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--purple-dark), #1a1128);
+    border: 1.5px solid var(--purple);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 28px;
+    font-weight: 300;
+    color: var(--gold-light);
+    letter-spacing: 2px;
+    position: relative;
+    overflow: hidden;
+  }
+  .avatar::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    border: 1px solid var(--gold);
+    opacity: 0.3;
+    transform: scale(1.1);
+  }
+
+  .name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2rem;
+    font-weight: 300;
+    color: var(--text);
+    letter-spacing: 3px;
+    text-align: center;
+  }
+
+  .tagline {
+    font-size: 0.7rem;
+    font-weight: 300;
+    letter-spacing: 4px;
+    color: var(--gold);
+    text-transform: uppercase;
+    text-align: center;
+  }
+
+  .bio {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    text-align: center;
+    line-height: 1.7;
+    max-width: 300px;
+    font-style: italic;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1rem;
+    font-weight: 300;
+  }
+
+  .divider {
+    width: 60px;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--purple), transparent);
+    margin: 0.5rem 0;
+  }
+
+  .links {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    padding: 0.5rem 0;
+  }
+
+  .link-btn {
+    width: 100%;
+    border-radius: 60px;
+    padding: 1rem 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    text-decoration: none;
+    cursor: pointer;
+    border: none;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+    animation: fadeUp 0.8s ease both;
+  }
+  .link-btn:hover { transform: translateY(-2px); opacity: 0.92; }
+  .link-btn:active { transform: scale(0.98); }
+
+  .btn-primary {
+    background: var(--purple-dark);
+    border: 1px solid var(--purple);
+  }
+  .btn-primary .btn-name { color: var(--text); }
+  .btn-primary .btn-desc { color: var(--purple-light); }
+  .btn-primary .btn-arrow { color: var(--purple-light); }
+
+  .btn-highlight {
+    background: linear-gradient(135deg, #3d3480, #534ab7);
+    border: 1px solid var(--purple-light);
+  }
+  .btn-highlight .btn-name { color: #fff; }
+  .btn-highlight .btn-desc { color: var(--purple-light); }
+  .btn-highlight .btn-arrow { color: #fff; }
+
+  .btn-green {
+    background: #0d2820;
+    border: 1px solid var(--green);
+  }
+  .btn-green .btn-name { color: var(--green-light); }
+  .btn-green .btn-desc { color: #3d9e7a88; }
+  .btn-green .btn-arrow { color: var(--green-light); }
+
+  .btn-ghost {
+    background: transparent;
+    border: 1px solid #3d348055;
+  }
+  .btn-ghost .btn-name { color: var(--text-muted); }
+  .btn-ghost .btn-desc { color: #534ab766; }
+  .btn-ghost .btn-arrow { color: var(--text-muted); }
+
+  .btn-left { display: flex; flex-direction: column; gap: 2px; text-align: left; }
+  .btn-name { font-size: 0.9rem; font-weight: 500; }
+  .btn-desc { font-size: 0.72rem; font-weight: 300; letter-spacing: 0.02em; }
+  .btn-badge {
+    font-size: 0.6rem;
+    font-weight: 500;
+    padding: 2px 8px;
+    border-radius: 20px;
+    background: var(--purple);
+    color: #fff;
+    letter-spacing: 0.05em;
+    display: inline-block;
+    margin-top: 2px;
+    width: fit-content;
+  }
+  .btn-arrow { font-size: 1rem; flex-shrink: 0; margin-left: 1rem; }
+
+  .btn-ebook {
+    border-radius: 16px;
+    padding: 1.25rem 1.5rem;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+  .btn-ebook .btn-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+  }
+  .btn-ebook-label {
+    font-size: 0.6rem;
+    font-weight: 500;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 2px;
+  }
+  .btn-ebook-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.3rem;
+    font-weight: 400;
+    color: #fff;
+    line-height: 1.2;
+  }
+  .btn-ebook-sub {
+    font-size: 0.72rem;
+    font-weight: 300;
+    color: var(--purple-light);
+    font-style: italic;
+    line-height: 1.4;
+  }
+  .btn-ebook-cta {
+    font-size: 0.72rem;
+    font-weight: 500;
+    color: var(--gold-light);
+    letter-spacing: 1px;
+    margin-top: 4px;
+  }
+
+  .footer {
+    margin-top: 2rem;
+    font-size: 0.65rem;
+    letter-spacing: 3px;
+    color: #3d348077;
+    text-transform: uppercase;
+    text-align: center;
+    animation: fadeUp 1.2s ease both;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .link-btn:nth-child(1) { animation-delay: 0.1s; }
+  .link-btn:nth-child(2) { animation-delay: 0.2s; }
+  .link-btn:nth-child(3) { animation-delay: 0.3s; }
+  .link-btn:nth-child(4) { animation-delay: 0.4s; }
+  .link-btn:nth-child(5) { animation-delay: 0.5s; }
+</style>
+</head>
+<body>
+
+<div class="bg-orb bg-orb-1"></div>
+<div class="bg-orb bg-orb-2"></div>
+
+<div class="stars" id="stars"></div>
+
+<div class="container">
+
+  <div class="header">
+    <svg class="star-icon" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M24 4 L25.5 22.5 L44 24 L25.5 25.5 L24 44 L22.5 25.5 L4 24 L22.5 22.5 Z" fill="#c9a96e" opacity="0.9"/>
+      <path d="M24 10 L24.8 22.8 L36 24 L24.8 25.2 L24 38 L23.2 25.2 L12 24 L23.2 22.8 Z" fill="#e8cfa0" opacity="0.5"/>
+    </svg>
+
+    <div class="avatar">LE</div>
+
+    <div>
+      <div class="name">Leiah Elior</div>
+      <div class="tagline">Espiritualidade Feminina</div>
+    </div>
+
+    <div class="bio">"O que você evita... te aprisiona."</div>
+    <div class="divider"></div>
+  </div>
+
+  <div class="links">
+
+    <a href="SEU_LINK_HOTMART_AQUI" class="link-btn btn-highlight btn-ebook">
+      <div class="btn-top">
+        <div class="btn-ebook-label">✦ Ebook</div>
+        <div style="font-size:0.6rem;font-weight:500;padding:2px 10px;border-radius:20px;background:var(--gold);color:#1a1128;letter-spacing:0.05em;">disponível</div>
+      </div>
+      <div class="btn-ebook-title">Sombras da Infância</div>
+      <div class="btn-ebook-sub">Meu caminho de ressignificação e libertação da dor</div>
+      <div class="btn-ebook-cta">Acessar agora →</div>
+    </a>
+
+    <a href="SEU_LINK_QUIZ_AQUI" class="link-btn btn-green">
+      <div class="btn-left">
+        <div class="btn-name">Descubra sua ferida da infância</div>
+        <div class="btn-desc">Teste gratuito · em breve</div>
+      </div>
+      <div class="btn-arrow">→</div>
+    </a>
+
+    <a href="https://pinterest.com/leiahelior" class="link-btn btn-ghost">
+      <div class="btn-left">
+        <div class="btn-name">Me siga no Pinterest</div>
+        <div class="btn-desc">@leiahelior · conteúdo diário sobre cura interior</div>
+      </div>
+      <div class="btn-arrow">→</div>
+    </a>
+
+  </div>
+
+  <div class="footer">leiah elior · espiritualidade feminina · autoconhecimento</div>
+
+</div>
+
+<script>
+const starsEl = document.getElementById('stars');
+for (let i = 0; i < 60; i++) {
+  const s = document.createElement('div');
+  s.className = 'star';
+  s.style.cssText = `
+    left: ${Math.random() * 100}%;
+    top: ${Math.random() * 100}%;
+    --d: ${2 + Math.random() * 4}s;
+    --delay: ${Math.random() * 5}s;
+    --op: ${0.3 + Math.random() * 0.5};
+    width: ${Math.random() > 0.7 ? 3 : 2}px;
+    height: ${Math.random() > 0.7 ? 3 : 2}px;
+  `;
+  starsEl.appendChild(s);
+}
+</script>
+</body>
+</html>
