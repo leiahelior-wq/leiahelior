@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Descubra Sua Ferida da Infância — Leiah Elior</title>
+
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-MY9G9KDR3V"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-MY9G9KDR3V');
+</script>
+
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #0d0a14;
+  --purple: #7c6fd0;
+  --purple-light: #a99ee8;
+  --purple-dark: #3d3480;
+  --gold: #c9a96e;
+  --gold-light: #e8cfa0;
+  --text: #ede8ff;
+  --text-muted: #9b91c8;
+  --rejeicao: #D85A30;
+  --abandono: #534AB7;
+  --traicao: #0F6E56;
+  --humilhacao: #854F0B;
+  --injustica: #A32D2D;
+}
+
+html, body {
+  min-height: 100%;
+  background: var(--bg);
+  font-family: 'Jost', sans-serif;
+  color: var(--text);
+  overflow-x: hidden;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 100vh;
+  padding: 2rem 1rem 4rem;
+  position: relative;
+}
+
+.bg-orb { position: fixed; border-radius: 50%; pointer-events: none; z-index: 0; }
+.bg-orb-1 { width: 500px; height: 500px; top: -150px; left: -150px; background: radial-gradient(circle, #3d348022 0%, transparent 70%); }
+.bg-orb-2 { width: 400px; height: 400px; bottom: 0; right: -100px; background: radial-gradient(circle, #2d6e5015 0%, transparent 70%); }
+
+.stars { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; overflow: hidden; }
+.star { position: absolute; width: 2px; height: 2px; background: var(--purple-light); border-radius: 50%; opacity: 0; animation: twinkle var(--d, 3s) var(--delay, 0s) infinite; }
+@keyframes twinkle { 0%, 100% { opacity: 0; transform: scale(0.8); } 50% { opacity: var(--op, 0.6); transform: scale(1.2); } }
+
+.container {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 520px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+}
+
+/* INTRO */
+.intro {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 1rem;
+  padding: 2rem 0 1rem;
+  animation: fadeUp 0.8s ease both;
+}
+
+.star-icon { width: 44px; height: 44px; animation: rotateSlow 20s linear infinite; }
+@keyframes rotateSlow { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+.brand { font-size: 0.65rem; letter-spacing: 4px; color: var(--gold); text-transform: uppercase; }
+.quiz-title { font-family: 'Cormorant Garamond', serif; font-size: 2.2rem; font-weight: 300; line-height: 1.2; color: var(--text); }
+.quiz-sub { font-size: 0.9rem; color: var(--text-muted); line-height: 1.6; max-width: 380px; }
+.start-btn {
+  margin-top: 0.5rem;
+  background: linear-gradient(135deg, #3d3480, #534ab7);
+  border: 1px solid var(--purple-light);
+  color: #fff;
+  font-family: 'Jost', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 500;
+  padding: 1rem 2.5rem;
+  border-radius: 60px;
+  cursor: pointer;
+  transition: transform 0.2s, opacity 0.2s;
+  letter-spacing: 1px;
+}
+.start-btn:hover { transform: translateY(-2px); opacity: 0.9; }
+
+/* PROGRESS */
+.progress-wrap {
+  width: 100%;
+  margin-bottom: 1.5rem;
+  display: none;
+}
+.progress-label {
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
+  color: var(--text-muted);
+  margin-bottom: 6px;
+  letter-spacing: 1px;
+}
+.progress-bar-bg { width: 100%; height: 4px; background: #2a2040; border-radius: 4px; overflow: hidden; }
+.progress-bar { height: 100%; background: linear-gradient(to right, var(--purple-dark), var(--purple-light)); border-radius: 4px; transition: width 0.4s ease; }
+
+/* QUESTION */
+.question-card {
+  width: 100%;
+  background: #141020;
+  border: 0.5px solid #3d348055;
+  border-radius: 20px;
+  padding: 2rem 1.5rem;
+  display: none;
+  flex-direction: column;
+  gap: 1.25rem;
+  animation: fadeUp 0.5s ease both;
+}
+.question-card.active { display: flex; }
+
+.q-number { font-size: 10px; letter-spacing: 3px; color: var(--gold); text-transform: uppercase; }
+.q-text { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-weight: 400; line-height: 1.4; color: var(--text); }
+
+.options { display: flex; flex-direction: column; gap: 0.6rem; }
+.option {
+  background: transparent;
+  border: 0.5px solid #3d348066;
+  border-radius: 12px;
+  padding: 0.9rem 1.1rem;
+  color: var(--text-muted);
+  font-family: 'Jost', sans-serif;
+  font-size: 0.85rem;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  line-height: 1.4;
+}
+.option:hover { border-color: var(--purple); color: var(--text); background: #1e1535; }
+.option.selected { border-color: var(--purple-light); color: var(--text); background: #2a1e50; }
+
+/* RESULT */
+.result-card {
+  width: 100%;
+  border-radius: 20px;
+  padding: 2rem 1.5rem;
+  display: none;
+  flex-direction: column;
+  gap: 1.25rem;
+  animation: fadeUp 0.6s ease both;
+  text-align: center;
+}
+.result-card.active { display: flex; }
+
+.result-badge {
+  font-size: 0.65rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  padding: 4px 14px;
+  border-radius: 20px;
+  display: inline-block;
+  margin: 0 auto;
+}
+.result-wound { font-family: 'Cormorant Garamond', serif; font-size: 2rem; font-weight: 400; line-height: 1.2; }
+.result-emoji { font-size: 2.5rem; }
+.result-desc { font-size: 0.9rem; color: var(--text-muted); line-height: 1.7; text-align: left; }
+
+.dicas-title { font-size: 0.7rem; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); text-align: left; }
+.dicas { display: flex; flex-direction: column; gap: 0.6rem; }
+.dica {
+  display: flex;
+  gap: 10px;
+  background: #141020;
+  border-radius: 12px;
+  padding: 0.9rem 1rem;
+  border: 0.5px solid #3d348044;
+  text-align: left;
+}
+.dica-num { font-size: 12px; font-weight: 500; color: var(--gold); flex-shrink: 0; width: 20px; }
+.dica-text { font-size: 0.82rem; color: var(--text-muted); line-height: 1.5; }
+
+.divider-gold { width: 60px; height: 1px; background: linear-gradient(to right, transparent, var(--gold), transparent); margin: 0 auto; }
+
+.ebook-cta {
+  background: linear-gradient(135deg, #3d3480, #534ab7);
+  border: 1px solid var(--purple-light);
+  border-radius: 16px;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  text-decoration: none;
+  transition: transform 0.2s, opacity 0.2s;
+  cursor: pointer;
+}
+.ebook-cta:hover { transform: translateY(-2px); opacity: 0.92; }
+.ebook-label { font-size: 0.6rem; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); }
+.ebook-title { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; font-weight: 400; color: #fff; line-height: 1.2; }
+.ebook-sub { font-size: 0.72rem; color: var(--purple-light); font-style: italic; }
+.ebook-btn-text { font-size: 0.75rem; font-weight: 500; color: var(--gold-light); letter-spacing: 1px; margin-top: 4px; }
+
+.restart-btn {
+  background: transparent;
+  border: 0.5px solid #3d348055;
+  color: var(--text-muted);
+  font-family: 'Jost', sans-serif;
+  font-size: 0.8rem;
+  padding: 0.7rem 1.5rem;
+  border-radius: 60px;
+  cursor: pointer;
+  margin: 0 auto;
+  transition: all 0.2s;
+}
+.restart-btn:hover { border-color: var(--purple); color: var(--text); }
+
+.footer { margin-top: 2rem; font-size: 0.65rem; letter-spacing: 3px; color: #3d348077; text-transform: uppercase; text-align: center; }
+
+@keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+</style>
+</head>
+<body>
+
+<div class="bg-orb bg-orb-1"></div>
+<div class="bg-orb bg-orb-2"></div>
+<div class="stars" id="stars"></div>
+
+<div class="container">
+
+  <!-- INTRO -->
+  <div class="intro" id="intro">
+    <svg class="star-icon" viewBox="0 0 48 48" fill="none">
+      <path d="M24 4 L25.5 22.5 L44 24 L25.5 25.5 L24 44 L22.5 25.5 L4 24 L22.5 22.5 Z" fill="#c9a96e" opacity="0.9"/>
+      <path d="M24 10 L24.8 22.8 L36 24 L24.8 25.2 L24 38 L23.2 25.2 L12 24 L23.2 22.8 Z" fill="#e8cfa0" opacity="0.5"/>
+    </svg>
+    <div class="brand">Leiah Elior</div>
+    <div class="quiz-title">Descubra sua<br>Ferida da Infância</div>
+    <div class="quiz-sub">Responda 10 perguntas honestas e descubra qual ferida emocional ainda guia sua vida — e como começar a curar.</div>
+    <button class="start-btn" onclick="startQuiz()">Começar o teste →</button>
+  </div>
+
+  <!-- PROGRESS -->
+  <div class="progress-wrap" id="progressWrap">
+    <div class="progress-label">
+      <span id="progressText">Pergunta 1 de 10</span>
+      <span id="progressPct">0%</span>
+    </div>
+    <div class="progress-bar-bg"><div class="progress-bar" id="progressBar" style="width:0%"></div></div>
+  </div>
+
+  <!-- QUESTIONS -->
+  <div id="questionsContainer" style="width:100%"></div>
+
+  <!-- RESULT -->
+  <div class="result-card" id="resultCard"></div>
+
+  <div class="footer" id="footer">leiah elior · espiritualidade feminina · autoconhecimento</div>
+
+</div>
+
+<script>
+// R=Rejeição, A=Abandono, T=Traição, H=Humilhação, I=Injustiça
+const questions = [
+  {
+    text: "Quando alguém não responde sua mensagem por horas, você geralmente pensa:",
+    options: [
+      { text: "Ele/ela está com raiva de mim ou me ignorando de propósito", ferida: "R" },
+      { text: "Será que fiz algo errado? Fico preocupada que tenha me abandonado", ferida: "A" },
+      { text: "Provavelmente está me enganando ou escondendo algo", ferida: "T" },
+      { text: "Talvez não me ache interessante o suficiente para responder", ferida: "H" },
+      { text: "Fico irritada — não é justo deixar alguém esperando assim", ferida: "I" }
+    ]
+  },
+  {
+    text: "Em relacionamentos, o seu maior medo é:",
+    options: [
+      { text: "Ser rejeitada, descartada ou não escolhida", ferida: "R" },
+      { text: "Ser abandonada e ter que lidar com a solidão", ferida: "A" },
+      { text: "Ser traída ou enganada por alguém de confiança", ferida: "T" },
+      { text: "Ser humilhada ou ridicularizada na frente de outros", ferida: "H" },
+      { text: "Ser tratada de forma injusta ou desrespeitosa", ferida: "I" }
+    ]
+  },
+  {
+    text: "Quando você comete um erro, sua reação mais comum é:",
+    options: [
+      { text: "Achar que as pessoas vão me julgar e deixar de gostar de mim", ferida: "R" },
+      { text: "Sentir que vou ser deixada de lado por causa disso", ferida: "A" },
+      { text: "Desconfiar que vão usar esse erro contra mim no futuro", ferida: "T" },
+      { text: "Sentir muita vergonha e querer sumir", ferida: "H" },
+      { text: "Ficar muito brava comigo mesma — parece injusto errar tanto", ferida: "I" }
+    ]
+  },
+  {
+    text: "Na infância, qual dessas situações mais se parece com o que você viveu?",
+    options: [
+      { text: "Sentia que era preterida ou menos amada que outras crianças", ferida: "R" },
+      { text: "Ficava com medo quando os pais saíam ou se atrasavam", ferida: "A" },
+      { text: "Sentia que seus segredos não eram respeitados", ferida: "T" },
+      { text: "Era alvo de críticas ou piadas sobre seu jeito de ser", ferida: "H" },
+      { text: "Era punida sem entender o motivo ou sem ter direito a se defender", ferida: "I" }
+    ]
+  },
+  {
+    text: "Quando alguém te elogia, você geralmente:",
+    options: [
+      { text: "Fico desconfiada — tenho dificuldade de acreditar que é sincero", ferida: "R" },
+      { text: "Fico feliz mas logo me pergunto se a pessoa vai continuar me valorizando", ferida: "A" },
+      { text: "Fico na dúvida se a pessoa quer algo em troca", ferida: "T" },
+      { text: "Me envergonho e não sei como reagir ao elogio", ferida: "H" },
+      { text: "Penso que estou apenas recebendo o que mereço — nada além do justo", ferida: "I" }
+    ]
+  },
+  {
+    text: "Em situações de conflito, você costuma:",
+    options: [
+      { text: "Sair da situação antes de ser rejeitada ou excluída", ferida: "R" },
+      { text: "Ceder para não perder a pessoa mesmo que isso me machuque", ferida: "A" },
+      { text: "Me fechar e parar de confiar na outra pessoa", ferida: "T" },
+      { text: "Me calar com medo de ser ridicularizada ou envergonhada", ferida: "H" },
+      { text: "Lutar com unhas e dentes pelo que considero justo", ferida: "I" }
+    ]
+  },
+  {
+    text: "Como você se sente quando está sozinha por muito tempo?",
+    options: [
+      { text: "Começo a achar que as pessoas não sentem falta de mim", ferida: "R" },
+      { text: "Fico ansiosa e com medo de ter sido esquecida", ferida: "A" },
+      { text: "Me pergunto se as pessoas estão falando mal de mim pelas costas", ferida: "T" },
+      { text: "Fico aliviada — quando estou com pessoas me sinto exposta demais", ferida: "H" },
+      { text: "Fico revoltada — parece que fui deixada de lado injustamente", ferida: "I" }
+    ]
+  },
+  {
+    text: "Qual dessas frases mais ressoa com o que você sente no fundo?",
+    options: [
+      { text: "\"Nunca sou suficiente para as pessoas que amo\"", ferida: "R" },
+      { text: "\"Tenho medo de que as pessoas que amo me deixem\"", ferida: "A" },
+      { text: "\"É difícil confiar — as pessoas sempre decepcionam\"", ferida: "T" },
+      { text: "\"Me sinto envergonhada de quem sou\"", ferida: "H" },
+      { text: "\"O mundo é injusto e eu sempre fico em desvantagem\"", ferida: "I" }
+    ]
+  },
+  {
+    text: "Quando você precisa pedir ajuda, você geralmente:",
+    options: [
+      { text: "Evita pedir com medo de ser um fardo e ser rejeitada", ferida: "R" },
+      { text: "Pede com ansiedade, preocupada se a pessoa vai realmente aparecer", ferida: "A" },
+      { text: "Prefere resolver sozinha — não confia que vão realmente ajudar", ferida: "T" },
+      { text: "Sente muita vergonha — pedir ajuda parece admitir fraqueza", ferida: "H" },
+      { text: "Fica indignada que precise pedir — deveria ser óbvio para os outros", ferida: "I" }
+    ]
+  },
+  {
+    text: "Qual padrão você mais identifica nos seus relacionamentos ao longo da vida?",
+    options: [
+      { text: "Término antes de ser terminada — me afasto quando percebo risco", ferida: "R" },
+      { text: "Me apego demais e fico desesperada quando a relação ameaça acabar", ferida: "A" },
+      { text: "Dificuldade de me abrir de verdade — sempre guardando uma parte", ferida: "T" },
+      { text: "Me diminuo para não incomodar ou ser criticada", ferida: "H" },
+      { text: "Muita dificuldade de aceitar situações que considero injustas", ferida: "I" }
+    ]
+  }
+];
+
+const results = {
+  R: {
+    nome: "Ferida da Rejeição",
+    emoji: "💔",
+    cor: "#D85A30",
+    corBg: "#2a1510",
+    corBorder: "#D85A3055",
+    desc: "Sua ferida dominante é a da Rejeição. Desde cedo você aprendeu que não era suficiente — e isso moldou uma parte de você que age antes de ser rejeitada. Você termina relacionamentos, evita se aproximar demais e sabota oportunidades como forma de proteção. No fundo, existe uma criança que só queria ser escolhida.",
+    dicas: [
+      "Observe quando você age para \"se rejeitar primeiro\" — essa é sua ferida falando",
+      "Pratique ficar em situações desconfortáveis sem fugir — o perigo é menor do que parece",
+      "Repita diariamente: \"Eu sou suficiente. Minha presença tem valor.\""
+    ]
+  },
+  A: {
+    nome: "Ferida do Abandono",
+    emoji: "🌑",
+    cor: "#534AB7",
+    corBg: "#1a1535",
+    corBorder: "#534AB755",
+    desc: "Sua ferida dominante é a do Abandono. Você carrega um medo profundo de ser esquecida ou deixada para trás. Isso se manifesta como dependência emocional, necessidade de confirmação constante e dificuldade de confiar que as pessoas vão ficar. No fundo, existe uma criança que aprendeu que as pessoas sempre vão embora.",
+    dicas: [
+      "Quando sentir ansiedade de abandono, pergunte: \"Isso está acontecendo agora ou é memória?\"",
+      "Desenvolva fontes de segurança interna — atividades, práticas e conexão consigo mesma",
+      "Repita: \"Eu estou aqui para mim. Eu nunca me abandono.\""
+    ]
+  },
+  T: {
+    nome: "Ferida da Traição",
+    emoji: "🛡️",
+    cor: "#0F6E56",
+    corBg: "#0d2820",
+    corBorder: "#0F6E5655",
+    desc: "Sua ferida dominante é a da Traição. Você aprendeu que confiar é perigoso — e criou uma armadura para se proteger. Isso se manifesta como desconfiança, necessidade de controle e dificuldade de se abrir emocionalmente. No fundo, existe uma criança que confiou e foi traída, e jurou nunca mais deixar isso acontecer.",
+    dicas: [
+      "Diferencie situações do passado das do presente — nem todos vão te trair",
+      "Experimente ser vulnerável em pequenas doses com pessoas seguras",
+      "Repita: \"Tenho sabedoria para discernir em quem confiar. Posso me abrir com segurança.\""
+    ]
+  },
+  H: {
+    nome: "Ferida da Humilhação",
+    emoji: "🌸",
+    cor: "#BA7517",
+    corBg: "#1e1508",
+    corBorder: "#BA751755",
+    desc: "Sua ferida dominante é a da Humilhação. Você internalizou críticas e julgamentos ao ponto de sentir vergonha constante de quem você é. Isso se manifesta como autocensura, dificuldade de se expor e tendência a se diminuir antes que outros o façam. No fundo, existe uma criança que foi envergonhada por ser exatamente quem era.",
+    dicas: [
+      "Observe a diferença entre crítica construtiva e humilhação — seu passado distorce essa leitura",
+      "Pratique o exercício do espelho — olhe nos seus olhos e diga algo gentil sobre si mesma",
+      "Repita: \"Minha existência é sagrada. Tenho o direito de ocupar espaço.\""
+    ]
+  },
+  I: {
+    nome: "Ferida da Injustiça",
+    emoji: "⚖️",
+    cor: "#A32D2D",
+    corBg: "#200d0d",
+    corBorder: "#A32D2D55",
+    desc: "Sua ferida dominante é a da Injustiça. Você cresceu em um ambiente onde suas necessidades eram ignoradas ou onde era punida sem entender o porquê. Isso gerou uma raiva profunda que se manifesta como rigidez, perfeccionismo e dificuldade de aceitar o que parece injusto. No fundo, existe uma criança que nunca teve voz.",
+    dicas: [
+      "Perceba quando sua raiva é desproporcional ao momento — é a ferida antiga falando",
+      "Trabalhe a flexibilidade — nem tudo precisa ser resolvido ou corrigido",
+      "Repita: \"Tenho voz. Minha verdade importa. Posso viver em paz mesmo com a imperfeição.\""
+    ]
+  }
+};
+
+let scores = { R: 0, A: 0, T: 0, H: 0, I: 0 };
+let currentQ = 0;
+let answered = [];
+
+function startQuiz() {
+  gtag('event', 'quiz_start', { event_category: 'Quiz', event_label: 'Ferida da Infancia' });
+  document.getElementById('intro').style.display = 'none';
+  document.getElementById('progressWrap').style.display = 'block';
+  renderQuestion(0);
+  updateProgress(0);
+}
+
+function renderQuestion(index) {
+  const container = document.getElementById('questionsContainer');
+  container.innerHTML = '';
+  const q = questions[index];
+  const card = document.createElement('div');
+  card.className = 'question-card active';
+  card.innerHTML = `
+    <div class="q-number">✦ Pergunta ${index + 1} de ${questions.length}</div>
+    <div class="q-text">${q.text}</div>
+    <div class="options">
+      ${q.options.map((opt, i) => `
+        <button class="option" onclick="selectOption(this, '${opt.ferida}', ${index})">${opt.text}</button>
+      `).join('')}
+    </div>
+  `;
+  container.appendChild(card);
+}
+
+function selectOption(btn, ferida, qIndex) {
+  document.querySelectorAll('.option').forEach(o => o.classList.remove('selected'));
+  btn.classList.add('selected');
+  scores[ferida]++;
+  answered[qIndex] = ferida;
+
+  setTimeout(() => {
+    currentQ++;
+    if (currentQ < questions.length) {
+      renderQuestion(currentQ);
+      updateProgress(currentQ);
+    } else {
+      showResult();
+    }
+  }, 400);
+}
+
+function updateProgress(index) {
+  const pct = Math.round((index / questions.length) * 100);
+  document.getElementById('progressBar').style.width = pct + '%';
+  document.getElementById('progressText').textContent = `Pergunta ${index + 1} de ${questions.length}`;
+  document.getElementById('progressPct').textContent = pct + '%';
+}
+
+function showResult() {
+  document.getElementById('questionsContainer').innerHTML = '';
+  document.getElementById('progressWrap').style.display = 'none';
+
+  const top = Object.entries(scores).sort((a, b) => b[1] - a[1])[0][0];
+  const r = results[top];
+
+  gtag('event', 'quiz_result', { event_category: 'Quiz', event_label: r.nome });
+
+  const card = document.getElementById('resultCard');
+  card.style.background = r.corBg;
+  card.style.border = `0.5px solid ${r.corBorder}`;
+  card.innerHTML = `
+    <div class="result-emoji">${r.emoji}</div>
+    <div class="result-badge" style="background:${r.cor}22;color:${r.cor};border:0.5px solid ${r.cor}44;">Sua ferida dominante</div>
+    <div class="result-wound" style="color:${r.cor}">${r.nome}</div>
+    <div class="result-desc">${r.desc}</div>
+    <div class="divider-gold"></div>
+    <div class="dicas-title">✦ 3 primeiros passos para curar</div>
+    <div class="dicas">
+      ${r.dicas.map((d, i) => `
+        <div class="dica">
+          <div class="dica-num">${i + 1}.</div>
+          <div class="dica-text">${d}</div>
+        </div>
+      `).join('')}
+    </div>
+    <div class="divider-gold"></div>
+    <a href="https://go.hotmart.com/B101284039O?utm_source=quiz&utm_medium=resultado&utm_campaign=${encodeURIComponent(r.nome)}" 
+       class="ebook-cta" 
+       onclick="gtag('event','click',{event_category:'Quiz CTA',event_label:'Ebook - ${r.nome}'})"
+       target="_blank">
+      <div class="ebook-label">✦ Próximo passo</div>
+      <div class="ebook-title">Sombras da Infância</div>
+      <div class="ebook-sub">Aprofunde a cura da sua ${r.nome.toLowerCase()} — guia completo</div>
+      <div class="ebook-btn-text">Quero curar minha ferida → </div>
+    </a>
+    <button class="restart-btn" onclick="restartQuiz()">Refazer o teste</button>
+  `;
+  card.classList.add('active');
+}
+
+function restartQuiz() {
+  scores = { R: 0, A: 0, T: 0, H: 0, I: 0 };
+  currentQ = 0;
+  answered = [];
+  document.getElementById('resultCard').classList.remove('active');
+  document.getElementById('resultCard').innerHTML = '';
+  document.getElementById('intro').style.display = 'flex';
+  gtag('event', 'quiz_restart', { event_category: 'Quiz', event_label: 'Reiniciou o teste' });
+}
+
+// Stars
+const starsEl = document.getElementById('stars');
+for (let i = 0; i < 60; i++) {
+  const s = document.createElement('div');
+  s.className = 'star';
+  s.style.cssText = `left:${Math.random()*100}%;top:${Math.random()*100}%;--d:${2+Math.random()*4}s;--delay:${Math.random()*5}s;--op:${0.3+Math.random()*0.5};width:${Math.random()>0.7?3:2}px;height:${Math.random()>0.7?3:2}px;`;
+  starsEl.appendChild(s);
+}
+</script>
+</body>
+</html>
